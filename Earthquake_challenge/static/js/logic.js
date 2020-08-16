@@ -20,7 +20,7 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
 });
 
 
-// Create a base layer that holds both maps.
+// Create a base layer that holds all maps.
 let baseMaps = {
 	"Streets": streets,
 	"Satellite": satelliteStreet,
@@ -28,7 +28,7 @@ let baseMaps = {
   };
 
 
-  // Create the earthquake layer for our map.
+  // Create the layers for our map.
 let earthquakes = new L.layerGroup();
 let faultLines = new L.layerGroup()
 
@@ -145,7 +145,7 @@ function getColor(magnitude) {
 	return "#98ee00";
 }
 
-// Retrieve the  fault line GeoJSON data.
+// Retrieve the fault line GeoJSON data.
 d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function(data) {
 // Creating a GeoJSON layer with the retrieved data.
 L.geoJson(data, {
@@ -162,10 +162,13 @@ L.geoJson(data, {
 	layer.bindPopup("Fault Lines");
 	}
 	}).addTo(faultLines)
-	faultLines.addTo(map)});
+
+	faultLines.addTo(map)
+});
 
 	function styleLineInfo(feature) {
 		return {
-		  color: "red"
+		  color: "red",
+		  weight: 1.5
 		};
 	  }
